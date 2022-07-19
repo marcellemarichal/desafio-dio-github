@@ -1,0 +1,78 @@
+GIT
+
+O Git é um software/sistema de versionamento de código distribuído aprimorado por Linus Torvalds. Ele ajuda a monitorar diferentes versões de código dentro da nossa máquina.
+O Git e o GitHub são tecnologias complementares, mas diferentes. Alguns benefícios de aprender as duas tecnologias juntas são: controle de versão; armazenamento em nuvem; trabalhar em equipe; melhorar seu código; reconhecimento.
+
+NAVEGAÇÃO BÁSICA NO TERMINAL E INSTALAÇÃO
+
+	O Git é uma tecnologia que usa a Command Line Interface, a linha de comando. Para abrir o prompt de comando no Windows, é só digitar na barra de pesquisa o comando “cmd”. 
+
+Comandos:
+
+- dir: dá uma lista de diretórios/pastas do computador. O mesmo comando está no linux, mas ao invés de dir é ls.
+- cd: abreviação de change director, esse comando permite a navegação entre pastas e é igual para todos os sistemas operacionais. A barra / leva para a primeira pasta do windows, o diretório C. Cada nome da pasta/ avança um nível na navegação, e cada .. + nome da pasta retrocede um nível na navegação.
+- cls: significa clear screen e limpa a tela. No linux o comando se chama clear
+- mkdir: de make director, cria uma pasta. A pasta padrão se chama workspace, e para criá-la é necessário colocar o comando mkdir workspace, sendo workspace o nome da pasta a ser criada.
+- del: deleta todos os arquivos dentro da pasta
+- rmdir: de remove dir, deleta a pasta e todos os arquivos dentro dela
+- pwd: mostra o caminho/endereço da pasta onde estou
+- mv: move arquivos para outras pastas. Usa-se mv nomedoarquivo.extensao ./nomedapasta/
+
+O tab serve para autocompletar as palavras.
+
+MAS COMO O GIT FUNCIONA DEBAIXO DOS PANOS?
+
+SHA1 - É um algoritmo de encriptação. Ele pega o arquivo e embaralha de uma forma específica. Os dados encriptados geram um conjunto único de caracteres de 40 dígitos e serve como identificação. É uma forma curta de representar um arquivo. SHA1 significa Secure Hash Algorithm. Para gerar essa encriptação, o código deve ser escrito no Git Bash assim: openssl sha1 nome.extensao (lembrar de abrir no Git Bash a pasta onde o arquivo está)
+
+Objetos Fundamentais - Os Objetos internos ou fundamentais do Git são BLOBS, TREES e COMMITS. 
+O Blob (bolha) é um objeto que possui metadados dentro dele, contendo o tipo do objeto, o tamanho da string/arquivo, uma barra contrária + 0 e o conteúdo do arquivo. Ele não guarda o nome do arquivo, apenas o SHA (identificador). 
+As Trees (árvores) armazenam blobs. O Blob é o bloco básico de uma composição e a tree armazena e aponta para tipos de dados diferentes. Ela também contém metadados, aponta para o blob, tem um SHA1 e guarda o nome do arquivo. A árvore é responsável por montar a estrutura de onde estão os arquivos, podendo apontar tanto para blobs quanto para outras trees. Elas guardam tanto o sha1 do metadado quanto o nome original do arquivo, diferente do Blob.]
+O Commit é o objeto que une e dá sentido aos outros. Ele aponta para uma árvore, para o autor e a mensagem. O commit permite escrever uma mensagem que dê sentido e explique o que está sendo feito e também mostra o nome do autor. Eles também mostram a data, hora e detalhes de quando o arquivo foi criado. Os commits também possuem encriptação.
+
+Sistema distribuído - É um sistema que está distribuído entre um grande número de pessoas que guardam esse código.
+
+Segurança - Essa grande distribuição entre todas as pessoas que trabalham no código torna o armazenamento seguro porque caso uma pessoa perca o código as outras o terão.
+
+
+CHAVE SSH é uma forma de estabelecer uma conexão segura e encriptada entre duas máquinas. No caso do GitHub, conectar o servidor do GitHub e a nossa máquina local. São duas chaves: uma pública e uma privada. A pública é colada no GitHub para que ele reconheça nossa máquina como uma fonte segura, como se fosse uma assinatura. A conexão prévia torna possível o envio de código sem senha. 
+Adicionando uma chave ssh: a) adicionar comando ssh-keygen -t ed25519 -c marichaldarosa@gmail.com (ou o email que eu estiver usando). Vai pedir uma senha, eu acrescento a senha e a repito. b) rodar o comando cat id_ed25519.pub, dar enter e copiar o código que a máquina deu e colar no espaço para novas chaves ssh no GitHub (settings/SSH and GPG keys). c) no terminal, usar o comando eval $(ssh-agent -s), dar enter e o terminal vai dar um pid (um número aleatório). d) adicionar o comando ssh-add id_ed25519 para adicionar a identidade na máquina. e) para validar (clonar um repositório), é só copiar o link SSH de um repositório no GitHub e dar o comando git clone e o link copiado. Ele vai pedir a confirmação, é só dar yes e está pronto. O passo a passo também está descrito no GitHub Docs.
+
+TOKEN de acesso pessoal é a segunda forma segura de identificação. Ele é parecido com o SSH, mas com senha. Nessa opção, é necessário gerar um token no github, guardar na máquina e sempre que for fazer um commit, o git pede o usuário e senha, mas na hora da senha é necessário colocar o token. Ele pode ter validade, escolhida no momento de criação, podendo ser de 7 dias a sem expiração. 
+
+PRIMEIROS COMANDOS GIT
+
+git init: inicializa/cria um repositório no git
+git config: seta um email e username para o usuário. O comando --global seta esse mesmo usuário para todos os repositórios git criados na mesma máquina. É usado para configurar email sendo chamado como git config --global user.email “marichaldarosa@gmail.com” e nickname sendo chamado como git config --global user.name marcellemarichal.
+git add: dá início ao versionamento e adiciona arquivos no staged, podendo ser usado como git add <nomedoarquivo>, adicionando apenas o arquivo solicitado, ou git add * ou git add . para adicionar todos os arquivos disponíveis. 
+git commit: adiciona o repositório na máquina no repositório git e acrescenta uma mensagem contextualizando qual é a versão do código. Usa-se git commit -m “mensagem para contextualizar a versão”.
+git status: ajuda a monitorar o status dos arquivos (modified, untracked, staged, etc)
+git config: permite ver e atribuir configurações que controlam todos os aspectos de como o Git aparece e opera. 
+git remote add origin: adiciona uma origem remota para o meu repositório local (no caso o github). É aqui que se coloca o código dado pelo GitHub
+git push origin master: empurra o repositório local para uma origem remota, nesse caso a branch master
+git pull origin master: puxa o conteúdo do github para a máquina local
+git clone: serve para clonar um código. Deve-se visitá-lo no GitHub, copiar o link HTTPS que o botão </> code fornece e usar o comando git clone + link https copiado.
+git remote -v: mostra todos os itens daquela pasta que foram puxados de um repositório remoto.
+
+Tracked/Untracked - Tracked são arquivos que temos ciência que existem e Untracked são arquivos que não temos ciência da existência deles. Dentro dos arquivos rastreados pelo git, ele se subdivide em três estágios diferentes: unmodified (que ainda não foi modificado), modified (que já sofreu modificação) e staged (onde ficam os arquivos que estão se preparando para fazer parte de um commit). 
+Processo do git add: 1º um arquivo untracked, porque acabou de ser criado, ou seja, o git não sabia da existência dele; 2º com o git add, esse arquivo foi movido para o staged, a área de preparação
+Qualquer alteração salva no arquivo unmodified o torna modified. O git percebe isso porque compara o sha1 do arquivo sem alteração e do arquivo com alteração e vê que eles têm modificações. 
+Se um arquivo unmodified é deletado, ele volta pro untracked, ou seja, o git não teve acesso a ele, então não sabe da sua existência. 
+Os arquivos em stage estão se preparando para serem levados pelo commit. O commit retorna todos os arquivos para unmodified, para recomeçar o ciclo unmodified/modified/staged/commit. 
+
+REPOSITÓRIOS estão representados por dois ambientes: a) o de desenvolvimento, ou seja, a minha máquina e b) o servidor, no caso o GitHub. A alteração que faço no código no ambiente a não é automaticamente alterada no ambiente b. Para que o ambiente b receba essa alteração, eu preciso executar um conjunto de códigos para empurrar a alteração do repositório local para o remoto. 
+
+Ao criar um arquivo, ele será colocado como untracked. Para levá-lo à área de stage, deve-se usar o comando git add. Ele está pronto para ser commitado, então deve-se usar o git commit -m “mensagem”, sendo commitado para o repositório git local.
+
+INTERAÇÃO ENTRE REPOSITÓRIO LOCAL E REMOTO
+
+	Para subir um repositório git para o GitHub, é necessário iniciar o processo criando um repositório na máquina: git init, git add . e git commit -m “mensagem”. Para subir para o GitHub, deve-se criar um repositório manualmente no site e puxar pela máquina. O github dá o passo a passo: 
+git remote add origin https://github.com/marcellemarichal/nomerepositorio.git
+git branch -M master
+git push -u origin master
+Caso ele peça alguma senha, é necessário reconfigurar a chave SSH. 
+
+COMO LIDAR COM CONFLITOS NO GITHUB
+
+	Quando dois desenvolvedores pegam o mesmo código e cada um começa a trabalhar neste código na sua respectiva máquina, serão três códigos diferentes: um meu, um dela e um do github. Se ela subir o dela para o github, o meu é o único diferente/desatualizado. Nesse caso, se eu tentar subir o meu código, eu devo primeiro puxar o código da outra pessoa para só depois subir o meu. Isso se chama conflito de merge, que deve ser ajustado manualmente. Caso eu esteja tentando fazer upload do código conflitante, o git vai impedir e mostrar uma mensagem explicando que eu devo consertar de forma manual. 
+
+
